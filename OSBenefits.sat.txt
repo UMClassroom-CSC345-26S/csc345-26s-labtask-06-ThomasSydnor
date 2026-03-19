@@ -1,0 +1,108 @@
+% START OF SYSTEM OUTPUT
+Running first-order model finding
+Running: /home/tptp/Systems/Vampire-SAT---5.0/vampire --mode casc --intent sat -m 16384 --cores 7 -t 60 /tmp/Oo1bx2a1Co/SOT_uSmxMy
+% (4145673)Running in auto input_syntax mode. Trying TPTP
+% (4145673)Will run a generic schedule for satisfiability detection.
+% (4145678)fmb+10_1_sas=cadical:bce=on:rp=on:random_seed=1875321376_599 on SOT_uSmxMy for (599ds/0Mi)
+% (4145682)ott+31_1_sil=16000:lcm=predicate:bce=on:newcnf=on:random_seed=756262893:i=116_1 on SOT_uSmxMy for (1ds/116Mi)
+% (4145684)ott-3_16_to=lpo:sil=16000:sp=arity:fd=off:rp=on:random_seed=1750433524:i=159:nicw=on:bs=unit_only:fsr=off:amm=off_1 on SOT_uSmxMy for (1ds/159Mi)
+% (4145680)dis+10_161_sil=256000:plsq=on:plsqr=61199697,1048576:gs=on:alpa=true:sac=on:slsq=on:cn=on:random_seed=1549689929:i=88024:add=on:rawr=on_441 on SOT_uSmxMy for (441ds/88024Mi)
+% Detected minimum model sizes of [3,1]
+% Detected maximum model sizes of [3,2]
+% TRYING [3,1]
+% TRYING [3,2]
+% Finite Model Found!
+% SZS status Satisfiable for SOT_uSmxMy
+% (4145678)First to succeed.
+% (4145678)Solution written to "/tmp/tmp.PFDgwlJvUh/vampire-proof-4145673"
+% (4145681)dis+10_1_sil=32000:sp=arity:random_seed=612878943:i=103:fgj=on_1 on SOT_uSmxMy for (1ds/103Mi)
+% SZS output start FiniteModel for SOT_uSmxMy
+tff('declare_$i1',type,'fmb_$i_1':$i).
+tff('finite_domain_$i',axiom,
+      ! [X:$i] : (
+         X = 'fmb_$i_1'
+      ) ).
+
+tff(declare_os,type,os:$tType).
+tff(declare_os1,type,fmb_os_1:os).
+tff(declare_os2,type,fmb_os_2:os).
+tff(declare_os3,type,fmb_os_3:os).
+tff(finite_domain_os,axiom,
+      ! [X:os] : (
+         X = fmb_os_1 | X = fmb_os_2 | X = fmb_os_3
+      ) ).
+
+tff(distinct_domain_os,axiom,
+         fmb_os_1 != fmb_os_2 & fmb_os_1 != fmb_os_3 & fmb_os_2 != fmb_os_3
+).
+
+tff(declare_origin,type,origin:$tType).
+tff(declare_origin1,type,fmb_origin_1:origin).
+tff(declare_origin2,type,fmb_origin_2:origin).
+tff(finite_domain_origin,axiom,
+      ! [X:origin] : (
+         X = fmb_origin_1 | X = fmb_origin_2
+      ) ).
+
+tff(distinct_domain_origin,axiom,
+         fmb_origin_1 != fmb_origin_2
+).
+
+tff(declare_computer,type,computer:$tType).
+tff(declare_computer1,type,fmb_computer_1:computer).
+tff(finite_domain_computer,axiom,
+      ! [X:computer] : (
+         X = fmb_computer_1
+      ) ).
+
+tff(declare_linux,type,linux:os).
+tff(linux_definition,axiom,linux = fmb_os_1).
+tff(declare_windows,type,windows:os).
+tff(windows_definition,axiom,windows = fmb_os_2).
+tff(declare_osx,type,osx:os).
+tff(osx_definition,axiom,osx = fmb_os_3).
+tff(declare_unix,type,unix:origin).
+tff(unix_definition,axiom,unix = fmb_origin_1).
+tff(declare_dos,type,dos:origin).
+tff(dos_definition,axiom,dos = fmb_origin_2).
+tff(declare_my_computer,type,my_computer:computer).
+tff(my_computer_definition,axiom,my_computer = fmb_computer_1).
+tff(declare_origin_of,type,origin_of: (os) > origin).
+tff(function_origin_of,axiom,
+           origin_of(fmb_os_1) = fmb_origin_1
+         & origin_of(fmb_os_2) = fmb_origin_2
+         & origin_of(fmb_os_3) = fmb_origin_1
+
+).
+
+tff(declare_runs,type,runs: (computer * os) > $o).
+tff(predicate_runs,axiom,
+           runs(fmb_computer_1,fmb_os_1)
+         & runs(fmb_computer_1,fmb_os_2)
+         & runs(fmb_computer_1,fmb_os_3)
+
+).
+
+tff(declare_benefits_from,type,benefits_from: (computer * origin) > $o).
+tff(predicate_benefits_from,axiom,
+           benefits_from(fmb_computer_1,fmb_origin_1)
+         & benefits_from(fmb_computer_1,fmb_origin_2)
+
+).
+
+% SZS output end FiniteModel for SOT_uSmxMy
+% (4145678)------------------------------
+% (4145678)Version: Vampire 5.0.1 (commit 44a2ec420 on 2026-02-23 17:05:19 +0100)
+% (4145678)Linked with Z3 4.14.0.0 3c47fd96cf5645d0c42b2c819d9e9a84380aa721 z3-4.8.4-9178-g3c47fd96c
+% (4145678)CaDiCaL version: 2.1.3-f13d744
+% (4145678)Termination reason: Satisfiable
+% (4145678)Time elapsed: 0.002 s
+% (4145678)Peak memory usage: 12 MB
+% (4145678)------------------------------
+% (4145678)------------------------------
+% (4145673)Success in time 0.059 s
+% Vampire exiting
+
+% END OF SYSTEM OUTPUT
+% RESULT: SOT_uSmxMy - Vampire-SAT---5.0 says Satisfiable - CPU = 0.00 WC = 0.09 
+% OUTPUT: SOT_uSmxMy - Vampire-SAT---5.0 says FiniteModel - CPU = 0.00 WC = 0.09 

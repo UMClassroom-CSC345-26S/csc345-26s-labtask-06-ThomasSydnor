@@ -1,0 +1,120 @@
+%------------------------------------------------------------------------------
+% OSBenefits.txt
+% Authors: Ken Thompson and Avie Tevanian
+%
+% Theorem: My computer benefits from UNIX.
+%
+% Background:
+%   - Linux, Windows, and OSX are the only operating systems (all distinct).
+%   - The only OS origins are UNIX and DOS (distinct).
+%   - Linux and OSX originate from UNIX; Windows originates from DOS.
+%   - All computers run one or more operating systems.
+%   - A computer benefits from the origins of the OSes it runs.
+%   - My computer runs OSX.
+%   - Therefore, my computer benefits from UNIX.
+%------------------------------------------------------------------------------
+
+%--- Type declarations ---------------------------------------------------------
+
+% User-defined types
+tff(os_type,type,
+    os: $tType ).
+
+tff(origin_type,type,
+    origin: $tType ).
+
+tff(computer_type,type,
+    computer: $tType ).
+
+%--- Constant declarations ----------------------------------------------------
+
+% Operating system constants
+tff(linux_decl,type,
+    linux: os ).
+
+tff(windows_decl,type,
+    windows: os ).
+
+tff(osx_decl,type,
+    osx: os ).
+
+% Origin constants
+tff(unix_decl,type,
+    unix: origin ).
+
+tff(dos_decl,type,
+    dos: origin ).
+
+% Computer constant
+tff(my_computer_decl,type,
+    my_computer: computer ).
+
+%--- Function/Predicate declarations ------------------------------------------
+
+% origin_of: maps an OS to its origin
+tff(origin_of_decl,type,
+    origin_of: os > origin ).
+
+% runs: a computer runs a given OS
+tff(runs_decl,type,
+    runs: ( computer * os ) > $o ).
+
+% benefits_from: a computer benefits from a given origin
+tff(benefits_from_decl,type,
+    benefits_from: ( computer * origin ) > $o ).
+
+%--- Axioms -------------------------------------------------------------------
+
+% Linux, Windows, and OSX are the ONLY operating systems (all distinct)
+tff(only_os,axiom,
+    ! [O: os] :
+      ( ( O = linux )
+      | ( O = windows )
+      | ( O = osx ) ) ).
+
+tff(distinct_os,axiom,
+    ( ( linux != windows )
+    & ( linux != osx )
+    & ( windows != osx ) ) ).
+
+% UNIX and DOS are the ONLY origins (and they are distinct)
+tff(only_origins,axiom,
+    ! [Orig: origin] :
+      ( ( Orig = unix )
+      | ( Orig = dos ) ) ).
+
+tff(distinct_origins,axiom,
+    unix != dos ).
+
+% The origin of Linux is UNIX
+tff(linux_origin,axiom,
+    origin_of(linux) = unix ).
+
+% The origin of OSX is UNIX
+tff(osx_origin,axiom,
+    origin_of(osx) = unix ).
+
+% The origin of Windows is DOS
+tff(windows_origin,axiom,
+    origin_of(windows) = dos ).
+
+% All computers run one or more operating systems
+tff(computers_run_os,axiom,
+    ! [C: computer] :
+    ? [O: os] : runs(C,O) ).
+
+% A computer benefits from the origin of every OS it runs
+tff(benefit_from_origin,axiom,
+    ! [C: computer,O: os] :
+      ( runs(C,O)
+     => benefits_from(C,origin_of(O)) ) ).
+
+% My computer runs OSX
+tff(my_computer_runs_osx,axiom,
+    runs(my_computer,osx) ).
+
+%--- Conjecture ---------------------------------------------------------------
+
+% Therefore, my computer benefits from UNIX
+tff(my_computer_benefits_unix,conjecture,
+    benefits_from(my_computer,unix) ).
